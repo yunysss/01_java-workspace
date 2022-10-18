@@ -72,7 +72,7 @@ public class OperatorPractice {
 		System.out.print("성적(소수점 아래 둘째 자리까지) : ");
 		double exam = sc.nextDouble();
 		
-		System.out.println(grade + "학년 " + className + "반 " + number + "번 " + name + " " + (gender == 'M' ? "남학생" : "여학생") + "의 성적은 " + exam + "이다.");
+		System.out.printf("%d학년 %d반 %d번 %s %s의 성적은 %.2f이다", grade, className, number, name, (gender == 'M' ? "남학생" : "여학생"), exam);
 	}
 	
 	public void practice6() {
@@ -101,6 +101,7 @@ public class OperatorPractice {
 		
 		System.out.println("\n합계 : " + (korean + english + math));
 		System.out.println("평균 : " + (korean + english + math)/3.0);
+		// int / int를 하게되면 그 결과 값이 int로 받게 된다. 소수점 표현이 어려워서 데이터 손실이 발생한다. 따라서 3.0을 나눈것임
 		System.out.println(korean >= 40 && english >= 40 && math >= 40 && (korean + english + math)/3.0 >= 60 ? "합격" : "불합격");
 		
 	}
@@ -112,6 +113,17 @@ public class OperatorPractice {
 		char num = sc.nextLine().charAt(7);
 		
 		System.out.println(num == '1' || num == '3' ? "남자" : "여자");
+		
+		/* 방법2.
+		System.out.print("주민번호를 입력하세요(-포함) : ");
+		String str = sc.nextLine(); // "800915-2453612"	
+									//  0123456789...    => 인덱스
+		
+		char gender = str.charAt(7);// '1' 또는 '2' 또는 '3' 또는 '4'
+		
+		String result = (gender == '1' || gender == '3') ? "남자" : "여자";
+		System.out.println(result);
+		*/
 	}
 	
 }

@@ -14,5 +14,6 @@ public class Run {
 	//a.practice6();
 	//a.practice7();
 	a.practice8();
+	
 	}
 }
