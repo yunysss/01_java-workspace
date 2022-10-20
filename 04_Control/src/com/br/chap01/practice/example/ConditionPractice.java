@@ -205,5 +205,9 @@ public class ConditionPractice {
 		case 8 : practice8();
 		}
 	}
+	
+	public void 집에서올린메소드() {
+		System.out.println("집에서 올린 코드");
+	}
 }
 	
