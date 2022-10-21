@@ -382,7 +382,7 @@ public class A_For {
 		int num = 0;
 		for(int i=0; i<str.length(); i++) {		
 			if(ch == str.charAt(i)) {
-				num += 1;
+				num += 1; // num++;
 			} 		
 		} System.out.println(num);		
 	}
