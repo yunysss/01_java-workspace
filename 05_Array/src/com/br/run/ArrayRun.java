@@ -11,6 +11,15 @@ public class ArrayRun {
 		//a.method2();
 		//a.method3();
 		//a.method4();
-		a.method5();
+		//a.method5();
+		//a.remind();
+		
+		B_ArrayCopy b = new B_ArrayCopy();
+		//b.method1();
+		//b.method2();
+		//b.method3();
+		//b.method4();
+		b.method5();
+		
 	}
 }

@@ -1,5 +1,7 @@
 package com.br.array;
 
+import java.util.Scanner;
+
 public class A_Array {
 	
 	/*
@@ -182,16 +184,23 @@ public class A_Array {
 		System.out.println("arr의 해쉬코드값 : " + arr.hashCode());
 		System.out.println("arr의 길이 : " + arr.length);
 		
+	}
+	public void remind() {
 		
+		int[] ages = new int[3];
 		
+		Scanner sc = new Scanner(System.in);
+		for(int i=0; i<ages.length; i++) {
+			System.out.print("나이 : ");
+			ages[i] = sc.nextInt();
+		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
+		int sum = 0;
+		for(int i=0; i<ages.length; i++) {
+			System.out.println(ages[i]);
+			sum += ages[i];
+		}
+		System.out.println("총 합 : " + sum);
+		System.out.println("평균 나이 : " + (double)sum / ages.length);
 	}
 }
