@@ -208,7 +208,6 @@ public class A_Array {
 		// 배열을 강제로 삭제시키고자할 경우
 		// => 연결고리를 끊으면 됨
 		arr = null;
-		
 	}
 	
 	public void method6() {
@@ -345,5 +344,24 @@ public class A_Array {
 		
 		// 4. 홀수의 총합 출력
 		System.out.println("홀수들의 총합 : " + sum);
+	}
+
+	public void remind() {
+		
+		int[] ages = new int[3];
+		
+		Scanner sc = new Scanner(System.in);
+		for(int i=0; i<ages.length; i++) {
+			System.out.print("나이 : ");
+			ages[i] = sc.nextInt();
+		}
+		
+		int sum = 0;
+		for(int i=0; i<ages.length; i++) {
+			System.out.println(ages[i]);
+			sum += ages[i];
+		}
+		System.out.println("총 합 : " + sum);
+		System.out.println("평균 나이 : " + (double)sum / ages.length);
 	}
 }
