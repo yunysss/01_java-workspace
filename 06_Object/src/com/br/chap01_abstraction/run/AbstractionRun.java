@@ -15,6 +15,7 @@ public class AbstractionRun {
 	 * 						프로그래밍을 통해 가상세계로 구현하는 과정 
 	 * 
 	 * 4. 프로그램상에 필요한 객체들을 만들기 위해서
+	 * 
 	 *    => 클래스라는 틀을 먼저 만들어야됨 (객체들의 속성값들을 담아낼 그릇같은 존재)
 	 *    => 추상화 + 캡슐화 접목해서
 	 * 
@@ -74,7 +75,7 @@ public class AbstractionRun {
 		arr[0] = 10;
 		
 		Student hong = new Student(); // 객체생성구문
-		hong.name = "홍길동";
+		hong.name = "홍길동"; // 접근제한자가 public => 직접 접근 가능
 		hong.age = 20;
 		hong.height = 162.3;
 		
