@@ -37,17 +37,16 @@ public class ClassRun {
 		
 		System.out.println("==========================");
 		
-		Product p = new Product();
-		
+		Product p = new Product();		
 		p.setpName("텀블러");
 		p.setPrice(50000);
 		p.setBrand("스탠리");
 		
-		System.out.println(p.getpName());
-		System.out.println(p.getPrice());
-		System.out.println(p.getBrand());
-		
 		System.out.println(p.information());
+		
+		// 매개변수생성자로 생성과 동시에 초기화
+		Product p1 = new Product("텀블러", 50000, "스탠리");
+		System.out.println(p1.information());
 	}
 
 }

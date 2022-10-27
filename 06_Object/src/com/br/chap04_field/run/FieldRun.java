@@ -25,7 +25,7 @@ public class FieldRun {
 		//System.out.println(ft2.pri);
 		*/
 		
-		/*
+		
 		System.out.println(FieldTest3.sta); 
 		System.out.println(FieldTest2.sta);
 		
@@ -39,26 +39,7 @@ public class FieldRun {
 		
 		System.out.println(Math.PI);
 		//Math.PI = 4.56;
-		*/
 		
-		/*
-		User u = new User();
-		u.setUserId("yws1994");
-		u.setUserPwd("1234567");
-		u.setUserName("윤예서");
-		u.setAge(29);
-		u.setGender('F');
-		
-		System.out.println(u.getUserId());
-		System.out.println(u.information());
-		*/
-		
-		Cosmetic c = new Cosmetic();
-		c.setcName("칠리");
-		c.setPrice(30000);
-		c.setBrand("맥");
-		c.setCategory("립스틱");
-		c.setIngredient();
 		
 	}
 
