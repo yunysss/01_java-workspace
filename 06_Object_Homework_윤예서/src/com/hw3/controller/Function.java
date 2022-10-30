@@ -17,4 +17,24 @@ public class Function {
 			System.out.print(c + " ");
 		}
 	}
+	
+	public char alphabette() {
+		char alph = ' ';
+		while(alph < 'A' || alph > 'Z' && alph < 'a' || alph > 'z') {
+			alph = (char)(int)(Math.random() * 58 + 65);
+		}
+		return alph;
+	}
+	
+	public String mySubstring(String str, int index1, int index2) {
+		if(str != null) {
+			String substr = "";
+			for(int i = index1; i < index2; i++) {
+				substr += str.charAt(i);
+			}
+			return "4. " + str + "의 " + index1 + "번 " + index2 + "번 인덱스 사이의 값 출력 : " + substr;
+		} else {
+			return null;
+		}
+	}
 }
