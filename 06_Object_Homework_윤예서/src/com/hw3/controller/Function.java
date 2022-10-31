@@ -19,11 +19,11 @@ public class Function {
 	}
 	
 	public char alphabette() {
-		char alph = ' ';
+		int alph = 0;
 		while(alph < 'A' || alph > 'Z' && alph < 'a' || alph > 'z') {
-			alph = (char)(int)(Math.random() * 58 + 65);
+			alph = (int)(Math.random() * 58 + 65);
 		}
-		return alph;
+		return (char)alph;
 	}
 	
 	public String mySubstring(String str, int index1, int index2) {
