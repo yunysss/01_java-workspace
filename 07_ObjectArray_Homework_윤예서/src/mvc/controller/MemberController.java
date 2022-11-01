@@ -63,17 +63,17 @@ public class MemberController {
 	
 	public void updateMember(Member m, int menu, String update) {
 		
-		for(int i=0; i<memberCount; i++) {
+		
 			switch(menu) {
 			case 1: 
-				mem[i].setUserPwd(update);
+				m.setUserPwd(update);
 				break;
 			case 2: 
-				mem[i].setName(update);
+				m.setName(update);
 				break;
 			case 3:
-				mem[i].setEmail(update);
-			}
+				m.setEmail(update);
+			
 						
 		}
 	}
@@ -83,8 +83,10 @@ public class MemberController {
 		for(int i=0; i<memberCount; i++) {
 			if(mem[i].getUserId().equals(userId)) {
 				mem[i] = null;
-				mem[i] = mem[i+1];
-				memberCount--;
+				for(int j=i; j<memberCount; j++) {
+					mem[j] = mem[j+1];					
+				}
+				memberCount--;				
 			}
 		}
 	}

@@ -29,7 +29,7 @@ public class MemberMenu {
 			case 3: updateMember(); break;
 			case 4: deleteMember(); break;
 			case 5: printAllMember(); break;
-			case 9: System.out.println("프로그램을 종료합니다"); return;
+			case 9: System.out.println("프로그램을 종료합니다."); return;
 			}
 		}
 	}
