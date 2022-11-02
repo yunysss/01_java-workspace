@@ -13,7 +13,7 @@ public class Run {
 		Scanner sc = new Scanner(System.in);
 		
 		while(true) {
-			for(int i=0; i<st.length; i++) {
+			
 				System.out.print("학년 : ");
 				int grade = sc.nextInt();
 				System.out.print("반 : ");
@@ -29,16 +29,13 @@ public class Run {
 				int math = sc.nextInt();
 				sc.nextLine();
 			
-				st[i] = new Student(grade, classroom, name, kor, eng, math);
-				count++;
+				st[count++] = new Student(grade, classroom, name, kor, eng, math);
+				
 				System.out.print("계속 추가하시겠습니까? : ");
 				char ch = sc.nextLine().charAt(0);
 				if(ch == 'n') {
 					break;
-				} else {
-					continue;
-				}
-			}
+				} 		
 			for(int i=0; i<count; i++) {
 				System.out.println(st[i].information());
 			}

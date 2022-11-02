@@ -10,46 +10,52 @@ public class Product {
 	private double tax;
 	
 	public Product() {
-		
+		ProductController.count++;
 	}
 	
 	public Product(int pId, String pName, int price, double tax) {
 		this.pId = pId;
 		this.pName = pName;
 		this.price = price;
-		this.tax = tax;	
+		this.tax = tax;
 		
 		ProductController.count++;
 	}
-	
+
+	public int getpId() {
+		return pId;
+	}
+
 	public void setpId(int pId) {
 		this.pId = pId;
 	}
+
+	public String getpName() {
+		return pName;
+	}
+
 	public void setpName(String pName) {
 		this.pName = pName;
 	}
+
+	public int getPrice() {
+		return price;
+	}
+
 	public void setPrice(int price) {
 		this.price = price;
 	}
+
+	public double getTax() {
+		return tax;
+	}
+
 	public void setTax(double tax) {
 		this.tax = tax;
 	}
 	
-	public int getpId() {
-		return pId;
-	}
-	public String getpName() {
-		return pName;
-	}
-	public int getPrice() {
-		return price;
-	}
-	public double getTax() {
-		return tax;
-	}
-	
 	public String information() {
-		return pId + ", " + pName + ", " + price + ", " + tax;
+		return "제품번호=" + pId + ", 제품명=" + pName + ", 가격=" + price + ", 세금=" + tax;
 	}
 
 }
