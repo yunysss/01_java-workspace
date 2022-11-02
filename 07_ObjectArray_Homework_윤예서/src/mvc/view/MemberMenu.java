@@ -35,7 +35,7 @@ public class MemberMenu {
 	}
 	
 	public void insertMember() {
-		if(mc.getMemberCount() == mc.SIZE) {
+		if(mc.getMemberCount() >= mc.SIZE) {
 			return;
 		}
 		
