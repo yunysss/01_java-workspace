@@ -16,13 +16,13 @@ public class Run {
 		rec[1] = new Rectangle(-2, 5, 2, 8);
 		
 		System.out.println("===== circle =====");
-				for(Circle c : cir) {
-			System.out.println(c.draw());
+		for(Circle c : cir) {
+			c.draw();
 		}
 		
 		System.out.println("===== rectangle =====");
 		for(Rectangle r : rec) {
-			System.out.println(r.draw());
+			r.draw();
 		}
 
 	}

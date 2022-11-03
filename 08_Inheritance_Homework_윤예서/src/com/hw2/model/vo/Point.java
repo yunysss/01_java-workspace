@@ -28,8 +28,8 @@ public class Point {
 		this.y = y;
 	}
 	
-	public String draw() {
-		return "(x, y) : (" + x + ", " + y + ")";
+	public void draw() {
+		System.out.println("(x, y) : (" + x + ", " + y + ")");
 	}
 
 }

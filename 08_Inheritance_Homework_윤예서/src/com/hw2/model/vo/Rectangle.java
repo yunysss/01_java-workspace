@@ -29,8 +29,10 @@ public class Rectangle extends Point {
 		this.height = height;
 	}
 	
-	public String draw() {
-		return super.draw() + "\n면적 : " + width * height + "\n둘레 : " + 2 * (width + height);
+	public void draw() {
+		super.draw();
+		System.out.println("면적 : " + width * height);
+		System.out.println("둘레 : " + 2 * (width + height));
 	}
 
 }
