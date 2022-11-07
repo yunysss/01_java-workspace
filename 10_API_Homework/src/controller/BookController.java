@@ -26,13 +26,10 @@ public class BookController {
 		
 		// list에 담긴 전체 Book객체의 정보 출력하는 구문 작성하시오.
 		for(int i=0; i<list.length; i++) {
-			if(list[i] == null) {
-				break;
+			if(list[i] != null) {
+				System.out.println(list[i]);
 			}
-			
-		System.out.println(list[i]);
 		}
-		
 	}
 	
 	
@@ -50,6 +47,7 @@ public class BookController {
 		//	  '-'를 구분자로 StringTokenizer를 이용하여 문자열 분리 후 각각 년,월,일 을 Date에 적용
 	
 		// 코드 작성
+		
 		StringTokenizer stn = new StringTokenizer(newDate, "-");
 		Date publishDate = new Date(Integer.parseInt(stn.nextToken()) - 1900 , Integer.parseInt(stn.nextToken()) - 1, Integer.parseInt(stn.nextToken()));
 		
