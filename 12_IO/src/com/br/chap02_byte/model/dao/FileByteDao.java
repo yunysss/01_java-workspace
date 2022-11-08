@@ -21,7 +21,7 @@ public class FileByteDao {
 	public void fileSave() {
 		// FileOutputStream : 파일과 직접적으로 연결해서 1바이트 단위로 출력시킬 수 있는 스트림
 		
-		// 1. 스트림 생성 (톨오 만들기)
+		// 1. 스트림 생성 (통로 만들기)
 		// 2. 스트림으로 데이터를 출력
 		// 3. 다 사용한 후 스트림 반납
 		
