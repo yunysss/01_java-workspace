@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 import com.br.chap04_assist.part02_object.model.vo.Phone;
 
@@ -14,15 +15,25 @@ public class ObjectArrayDao {
 	
 	public void fileSave() {
 		
+		/*
 		Phone[] arr = new Phone[3];
 		arr[0] = new Phone("갤럭시", 1200000);
 		arr[1] = new Phone("아이폰", 1300000);
 		arr[2] = new Phone("플립", 1500000);
+		*/
+		ArrayList<Phone> list = new ArrayList<>(3);
+		list.add(new Phone("갤럭시", 1200000));
+		list.add(new Phone("아이폰", 1300000));
+		list.add(new Phone("플립", 1500000));
 		
 		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("e_phones.txt"))){
-			
+			/*
 			for(int i=0; i<arr.length; i++) {
 				oos.writeObject(arr[i]);
+			}
+			*/
+			for(Phone p : list) {
+				oos.writeObject(p);
 			}
 			
 		} catch (FileNotFoundException e) {

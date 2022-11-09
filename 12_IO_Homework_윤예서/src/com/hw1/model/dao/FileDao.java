@@ -29,7 +29,6 @@ public class FileDao {
 			}
 		}
 		
-		
 		System.out.print("저장하시겠습니까? (y/n) : ");
 		char ch = sc.nextLine().toUpperCase().charAt(0);
 		if(ch == 'Y') {
@@ -52,7 +51,6 @@ public class FileDao {
 			}
 		} else {
 			System.out.println("다시 메뉴로 돌아갑니다.");
-			return;
 		}		
 	}
 
@@ -92,6 +90,8 @@ public class FileDao {
 		
 		try {
 			br = new BufferedReader(new FileReader(str + ".txt"));
+			bw = new BufferedWriter(new FileWriter(str + ".txt", true));
+			
 			String value = null;
 			while((value = br.readLine()) != null) {
 				System.out.println(value);
@@ -110,7 +110,6 @@ public class FileDao {
 			System.out.print("변경된 내용을 파일에 추가하시겠습니까? (y/n) : ");
 			char ch = sc.nextLine().toUpperCase().charAt(0);
 			if(ch == 'Y') {
-				bw = new BufferedWriter(new FileWriter(str + ".txt", true));
 				bw.write(sb.toString());
 				System.out.println(str + ".txt 파일의 내용이 변경되었습니다.");
 			}
@@ -120,8 +119,10 @@ public class FileDao {
 		e.printStackTrace();
 		}finally {
 			try {
-				br.close();
-				bw.close();
+				if(br != null && bw != null) {
+					br.close();
+					bw.close();
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
