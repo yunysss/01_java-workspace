@@ -11,10 +11,10 @@
 - 한 개의 값만 담을 수 있음
 - 자료형에 맞는 값만 담을 수 있음
 - 새로운 값을 다시 대입할 수 있음
-### 1_4. 변수의 선언 및 초기화
+### 1_4. 변수의 선언 / 초기화
 ```
-자료형 변수명;   
-변수명 = 값;   
+자료형 변수명;
+변수명 = 값;
 => 자료형 변수명 = 값;
 ```
 ### 1_5. 자료형의 종류
@@ -253,9 +253,128 @@ a = a % 3;  => a %= 3;
   ```
     => 초기식, 증감식 생략 가능
 - do-while문
+  ```
+  do{   
+    반복적으로 실행할 코드;   
+  } while(조건식);
+  ```
+  - 처음에 조건검사 없이 무조건 한번 실행   
+    => 조건검사 => true일 경우 실행   
+    ------------반복------------   
+    => 조건검사 => false일 경우 실행하지 않고 반복문 종료
+### 3_3. 분기문 (Break / Continue)
+- break문
+  ```
+  break;
+  ```
+  - 반복문 안에 사용되는 분기문
+  - break; 실행 시 현재 속해있는 반복문을 빠져나감
+  - 유의사항
+    - switch문 안에서의 break;은 오로지 switch문만 빠져나감
+- continue문
+  ```
+  continue;
+  ```
+  - 반복문 안에 사용되는 분기문
+  - continue; 실행 시 그 뒤의 구문들 실행되지 않고 곧바로 현재 속해있는 반복문 위로 올라감
+***
+## 4. 배열 (Array)
+### 4_1. 변수와 배열 비교
+- 변수 : 하나의 공간에 하나의 값을 담을 수 있음
+- 배열 : 하나의 공간에 여러 개의 값을 담을 수 있음   
+        단, 같은 자료형의 값으로만 담을 수 있음
+### 4_2. 배열의 선언 / 할당 / 초기화
 ```
-do{   
-  반복적으로 실행할 코드;   
-} while(조건식);
+자료형 배열명[];
+자료형[] 배열명;
+배열명 = new 자료형[배열크기];
+=> 자료형[] 배열명 = new 자료형[배열크기];
+배열명[인덱스] = 값;
+=> 자료형[] 배열명 = new 자료형[]{값, 값, ...}   
+   자료형[] 배열명 = {값, 값, ...}
 ```
-    
+### 4_3. 배열 저장구조
+
+![캡처5](https://user-images.githubusercontent.com/115604544/201294760-07bcd0a7-c94c-4ccf-8722-1c78fe92aee3.JPG)
+- 기본자료형으로 선언된 변수 : 실제 리터럴값을 바로 담는 변수 => 일반 변수
+- 그 외 자료형으로 선언된 변수 : 주소값을 담는 변수 => 참조 변수 (레퍼런스 변수)
+- Heap에는 빈 공간이 존재할 수 없음 => JVM이 기본값을 초기화 해줌 => 각 인덱스에 직접 값 대입하지 않아도 초기화 되어있음
+### 4_4. 배열의 단점
+- 한번 지정된 배열의 크기는 변경 불가 => 새로운 크기의 배열 다시 만들어야 함
+- 연결이 끊긴 기존 배열은 그 어디에도 참조되고 있지 않은 불필요한 존재가 되어 일정 시간 지나면 가비지컬렉터(GC)가 지워줌 => 자동메모리 관리
+- 배열을 강제로 삭제시키고자할 경우 => 연결고리 끊기
+  ```java
+  arr = null;
+  ```
+### 4_4. 배열 복사
+- 얕은 복사
+  
+  ![Untitled](https://user-images.githubusercontent.com/115604544/201296108-36392e21-811c-4a56-a307-1409579302cb.png)
+  ```java
+  int[] origin = {1, 2, 3, 4, 5};
+  int[] copy = origin;
+  
+  copy[2] = 99;
+  System.out.println(Arrays.toString(origin)); // [1, 2, 99, 4, 5]
+  System.out.println(Arrays.toString(copy)); // [1, 2, 99, 4, 5]
+  System.out.println(origin == copy); // true
+  ```
+  - 주소값만을 복사
+  - 같은 곳을 참조
+- 깊은 복사
+  
+  ![Untitled](https://user-images.githubusercontent.com/115604544/201296705-38aee473-e329-47db-9b6f-cb32b68697ec.png)
+  - for문 활용
+    새로운 배열 생성 후 반복문 활용하여 원본배열의 각 인덱스 값을 새로운 배열에 대입
+    ```java
+    int[] origin = {1, 2, 3, 4, 5};
+    int[] copy = new int[5];
+
+    for(int i=0; i<origin.length; i++) {
+      copy[i] = origin[i];
+    }
+
+    copy[2] = 99;
+    System.out.println(Arrays.toString(origin)); // [1, 2, 3, 4, 5]
+    System.out.println(Arrays.toString(copy)); // [1, 2, 99, 4, 5]
+    System.out.println(origin == copy); // false
+    ```
+  - System클래스의 arraycopy메소드 활용
+    ```
+    System.arraycopy(원본배열명, 복사시작할인덱스, 복사본배열명, 복사본배열의복사될시작인덱스, 복사할갯수);
+    ```
+    ```java
+    int[] origin = {1, 2, 3, 4, 5};
+    int[] copy = new int[10];
+
+    System.arraycopy(origin, 2, copy, 5, 3)
+
+    System.out.println(Arrays.toString(copy)); // [0, 0, 0, 0, 0, 3, 4, 5, 0, 0] 
+    System.out.println(origin == copy); // false
+    ```
+  - Arrays클래스의 copyOf메소드 활용
+    ```
+    복사본배열 = Arrays.copyOf(원본배열명, 복사할길이);
+    ```
+    내가 제시한 길이만큼의 새로운 배열생성   
+    => 내가 제시한 길이가 원본 배열보다 클 경우 기존의 배열에 담겨 있는 값 복사 후 나머지 자리는 0   
+    => 내가 제시한 길이가 원본 배열보다 작을 경우 기존의 배열에 담겨 있는 값 제시한 길이만큼만 복사
+    ```java
+    int[] origin = {1, 2, 3, 4, 5};
+    int[] copy = Arrays.copyOf(origin, 10);
+
+    System.out.println(Arrays.toString(copy)); // [1, 2, 3, 4, 5, 0, 0, 0, 0, 0]
+    System.out.println(origin == copy); // false
+    ```
+  - clone()메소드 활용
+    ```
+    복사본배열 = 원본배열.clone();
+    ```
+    ```java
+    int[] origin = {1, 2, 3, 4, 5};
+    int[] copy = origin.clone();
+
+    System.out.println(Arrays.toString(copy)); // [1, 2, 3, 4, 5]
+    System.out.println(origin == copy); // false
+    ```
+      
