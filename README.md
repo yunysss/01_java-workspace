@@ -138,14 +138,7 @@ Scanner sc = new Scanner(System.in);
 - 비교 / 논리 연산자를 이용해 작성
 - 삼항 연산자 중첩 사용 가능
 ```java
-Scanner sc = new Scanner(System.in);
-		
-System.out.print("정수값 입력 : ");
-int num = sc.nextInt();
-				
-String result = (num > 0 ? "양수이다." : (num < 0 ? "음수이다." : "0이다."));
-		
-System.out.println(result);
+num > 0 ? "양수이다." : (num < 0 ? "음수이다." : "0이다.");
 ```
 ### 2_4. 복합 대입 연산자
 ```
@@ -265,5 +258,4 @@ do{
   반복적으로 실행할 코드;   
 } while(조건식);
 ```
-
     
