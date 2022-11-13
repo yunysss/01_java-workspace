@@ -24,8 +24,12 @@ public class LibraryManager {
 		mem = new Member(name, age, gender);
 	}
 	
-	public Member myPage() {
+	public Member getMem() {
 		return mem;
+	}
+	
+	public void updateMember(String name, int age, char gender) {
+		mem = new Member(name, age, gender);
 	}
 	
 	public ArrayList<Book> selectAll(){
