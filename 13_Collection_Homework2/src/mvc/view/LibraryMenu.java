@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import mvc.controller.LibraryManager;
 import mvc.model.vo.Book;
+import mvc.model.vo.Member;
 
 public class LibraryMenu {
 	
@@ -35,7 +36,7 @@ public class LibraryMenu {
 			sc.nextLine();
 			
 			switch(menu) {
-			case 1: System.out.println(lm.myPage()); break;
+			case 1: myPage(); break;
 			case 2: selectAll(); break;
 			case 3: searchBook(); break;
 			case 4: rentBook(); break;
@@ -45,6 +46,26 @@ public class LibraryMenu {
 		}
 	}
 	
+	public void myPage() {
+		Member me = lm.getMem();
+		System.out.println(me);
+		
+		System.out.print("수정하시겠습니까? (y/n) : ");
+		char ch = sc.nextLine().toUpperCase().charAt(0);
+		
+		if(ch == 'Y') {
+			System.out.print("수정할 이름 : ");
+			String name = sc.nextLine();
+			System.out.print("수정할 나이 : ");
+			int age = sc.nextInt();
+			sc.nextLine();
+			System.out.print("수정할 성별 : ");
+			char gender = sc.nextLine().charAt(0);
+			lm.updateMember(name, age, gender);
+			System.out.println("성공적으로 수정되었습니다.");
+		}
+		
+	}
 	public void selectAll() {
 		ArrayList<Book> bList = lm.selectAll();
 		for(int i=0; i<bList.size(); i++) {
