@@ -1417,7 +1417,7 @@ public class Phone implements Serializable {
         System.out.println(s);
       }
       ```
-    ② 2. ArrayList에 옮겨 담은 후 ArrayList 반복문 돌려서 출력
+    ② ArrayList에 옮겨 담은 후 ArrayList 반복문 돌려서 출력
       - ArrayList에 옮겨담기 1. addAll메소드 이용
         ```java
         ArrayList<Student> list1 = new ArrayList<>();
@@ -1434,10 +1434,36 @@ public class Phone implements Serializable {
         for(int i=0; i<list2.size(); i++) {
           System.out.println(list2.get(i));
         }
-        ```
-	
-      ③ Iterator 반복자를 이용해서 순차적으로 접근
-      	
-				=> hs2에 담겨있는 객체들을 Iterator에 담음 (복사)   
-        => hasNext() : StringTokenizer의 hasMoreTokens ()와 비슷    
-        => 더 이상의 요소가 없을 시 NoSuchElementException 발생
+        ```	
+    ③ Iterator 반복자를 이용해서 순차적으로 접근
+      ```java
+      Iterator<Student> it = hs2.iterator();
+      while(it.hasNext()) {
+        Student s = it.next();
+        System.out.println(s);
+      }
+      ```
+      => hs2에 담겨있는 객체들을 Iterator에 담음 (복사)   
+      => hasNext() : StringTokenizer의 hasMoreTokens ()와 비슷   
+      => 더 이상의 요소가 없을 시 NoSuchElementException 발생
+### 12_6. Map 계열
+- HashMap
+  ```java
+  HashMap<String, Snack> hm = new HashMap<>();
+  ```
+  => 키값과 밸류값의 제네릭 모두 작성
+  - put(K key, V value) : 키 밸류 세트로 추가시켜주는 메소드 *
+    - {키=밸류, 키=밸류, ...}
+    - 저장 순서 유지 안됨 / value값이 중복되어도 key값이 중복되지 않으면 저장 잘 됨
+    - 동일한 키값으로 다시 추가하는 경우 value값이 덮어씌워짐 (중복된 키값은 공존할 수 없음) => 키값은 식별자 같은 개념
+  - get(Object key) : V ⇒ 컬렉션에서 해당 키값을 가지는 Value 값을 반환해주는 메소드 *
+  - size() : 컬렉션에 담겨있는 객체들의 객수 반환
+  - replace(K key, V value) => 컬렉션에서 해당 키값 찾아서 다시 전달한 Value값으로 수정
+  - remove(Object key) : 컬렉션에서 해당 키값을 찾아서 그 키밸류 세트를 삭제시켜주는 메소드
+  -  map 공간에 담긴 모든 키 밸류 세트 다 접근 가능 
+    - 반복문 안됨
+    - ArrayList에 옮겨 담기 안됨
+    - Iterator 반복자 이용
+      - 곧바로 iterator 메소드 호출 못함
+      - Map ⇒ Set ⇒ Iterator
+      
