@@ -560,6 +560,7 @@ while(조건식){
   => 선언과 동시에 할당
   ```
   클래스명[] 배열명 = new 클래스명[배열크기];
+  ```
 - 초기화
   ```
   배열명[i] = new 클래스명();
@@ -1144,61 +1145,65 @@ if(레퍼런스 instanceof 클래스타입){
       - true 미작성시 : 해당 파일이 존재할 경우 기존의 데이터 덮어씌워짐 (기본값 false)   
         true 작성시 : 해당 파일이 존재할 경우 기존의 데이터에 이어서 작성
       - finally에서 fout 사용하기 위해 try문 바깥에 초기화해둠
+      
     ② 스트림으로 데이터를 출력 (write 메소드 사용)
       - 숫자(0~127), 문자
       - 한글은 2byte짜리기 때문에 깨져서 저장
       - 배열 출력시 통째로 지나가지 못하고 하나씩 지나가서 기록
+      
     ③ 다 사용한 후 스트림 반납 (반드시)
       - try안에 작성시 중간에 예외가 발생되는 경우 해당 이 구문 실행 안될 수 있음
       - finally안에 예외처리하여 작성
 - 프로그램 <— 파일 (입력)
   - FileInputStream : 파일로부터 데이터를 1바이트 단위로 입력받는 스트림
-  ```java
-  FileInputStream fin = null;
-  try {
-    fin = new FileInputStream("a_byte.txt");
-    System.out.println(fin.read());
-    System.out.println(fin.read());
-    System.out.println(fin.read());
-    System.out.println(fin.read());
-    System.out.println(fin.read());
-    System.out.println(fin.read());
-    System.out.println(fin.read());
-    System.out.println(fin.read()); // -1
-    System.out.println(fin.read()); // -1
-    while(true) {
-	
-      int value = fin.read();
-      if(value == -1) { 
-        break;
-      }
-
-    }
-      System.out.println(value);
-    int value = 0;
-    while((value = fin.read()) != -1) {
-      System.out.print((char)value);
-    }
-  } catch (FileNotFoundException e) { 
-    e.printStackTrace();
-  } catch (IOException e) {
-    e.printStackTrace();
-  } finally {
+    ```java
+    FileInputStream fin = null;
     try {
-      fin.close();
+      fin = new FileInputStream("a_byte.txt");
+      System.out.println(fin.read());
+      System.out.println(fin.read());
+      System.out.println(fin.read());
+      System.out.println(fin.read());
+      System.out.println(fin.read());
+      System.out.println(fin.read());
+      System.out.println(fin.read());
+      System.out.println(fin.read()); // -1
+      System.out.println(fin.read()); // -1
+      while(true) {
+
+        int value = fin.read();
+        if(value == -1) { 
+          break;
+        }
+
+      }
+        System.out.println(value);
+      int value = 0;
+      while((value = fin.read()) != -1) {
+        System.out.print((char)value);
+      }
+    } catch (FileNotFoundException e) { 
+      e.printStackTrace();
     } catch (IOException e) {
       e.printStackTrace();
+    } finally {
+      try {
+        fin.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
-  }
-  ```
-  ① FileInputStream 객체 생성 (해당 파일과의 연결통로가 만들어짐)
-    - 해당 파일이 존재하지 않으면 예외 발생 (자동으로 만들어주지 않음)
-  ② 스트림으로 데이터 입력받기 (read 메소드 사용)
-    - 실제로 파일에 얼마만큼의 데이터가 있는지 모름
-    - 파일의 끝을 만나는 순간 -1 반환
-    - 무한반복 활용하여 출력
-    - while문에 조건문 제시하여 출력
-  ③ 스트림 자원 반납
+    ```
+    ① FileInputStream 객체 생성 (해당 파일과의 연결통로가 만들어짐)
+      - 해당 파일이 존재하지 않으면 예외 발생 (자동으로 만들어주지 않음)
+      
+    ② 스트림으로 데이터 입력받기 (read 메소드 사용)
+      - 실제로 파일에 얼마만큼의 데이터가 있는지 모름
+      - 파일의 끝을 만나는 순간 -1 반환
+      - 무한반복 활용하여 출력
+      - while문에 조건문 제시하여 출력
+      
+    ③ 스트림 자원 반납
 ### 11_4. 문자 기반 스트림
 - XXXReader : 입력용 스트림
 - XXXWriter : 출력용 스트림
@@ -1226,9 +1231,11 @@ if(레퍼런스 instanceof 클래스타입){
     }
     ```    
     ① FileWriter 생성
+    
     ② 데이터 출력 (write 메소드)
       - 2바이트 단위로 데이터 전송
       - \n 개행문자로 한 줄 띄어쓰기
+      
     ③ 스트림 반납
 - 프로그램 <— 파일 (입력)
   - FileReader : 파일로부터 데이터를 2바이트 단위로 입력받을 수 있는 스트림
@@ -1253,7 +1260,9 @@ if(레퍼런스 instanceof 클래스타입){
     }
     ```
     ① FileReader 객체 생성
+    
     ② 데이터 입력 (read 메소드)
+    
     ③ 스트림 반납
 ### 11_5. 보조스트림
 - 속도를 향상 시키거나 기반스트림에서 제공하지 않는 메소드들을 제공
@@ -1262,10 +1271,12 @@ if(레퍼런스 instanceof 클래스타입){
   - 프로그램 —> 파일 (출력)
     - FileWriter : 파일과 직접적으로 연결해서 2바이트 단위로 출력할 수 있는 기반스트림
     - BufferedWriter : 버퍼라는 공간을 제공해주는 보조스트림 (속도 향상)
+    
     ① 기반스트림 생성
     ```java
     FileWriter fw = new FileWriter("c_buffer.txt");
     ```
+      
     ② 보조스트림 생성
     ```java
     BufferedWriter bw = new BufferedWriter(fw);
@@ -1409,62 +1420,155 @@ ArrayList<Music> list = new ArrayList<>();
     - Student에 hashCode() 오버라이딩 => "실제 각 필드에 담긴 데이터"들이 다 일치하면 동일한 10진수 반환
   - HashSet에 담긴 모든 객체들에 순차적으로 접근
     - 인덱스의 개념도 없고 get메소드 자체도 없음 (== 한 객체만 뽑을 수 없음)
+    
     ① for문 사용 가능 (단, 향상된 for문으로만 가능)
+    ```java
+    for(Student s : hs2) {
+      System.out.println(s);
+    }
+    ```
+    ② ArrayList에 옮겨 담은 후 ArrayList 반복문 돌려서 출력
+    - ArrayList에 옮겨담기 1. addAll메소드 이용
       ```java
-      for(Student s : hs2) {
-        System.out.println(s);
+      ArrayList<Student> list1 = new ArrayList<>();
+      list1.addAll(hs2);
+
+      for(int i=0; i<list2.size(); i++) {
+        System.out.println(list2.get(i));
       }
       ```
-    ② ArrayList에 옮겨 담은 후 ArrayList 반복문 돌려서 출력
-      - ArrayList에 옮겨담기 1. addAll메소드 이용
-        ```java
-        ArrayList<Student> list1 = new ArrayList<>();
-        list1.addAll(hs2);
+    - ArrayList에 옮겨담기 2. ArrayList 생성시 통채로 추가하기
+      ```java
+      ArrayList<Student> list2 = new ArrayList<>(hs2);
 
-        for(int i=0; i<list2.size(); i++) {
-          System.out.println(list2.get(i));
+      for(int i=0; i<list2.size(); i++) {
+        System.out.println(list2.get(i));
+      }
+      ```	
+    ③ Iterator 반복자를 이용해서 순차적으로 접근 
+    ```java   
+    Iterator<Student> it = hs2.iterator();   
+    while(it.hasNext()){   
+      Student s = it.next();   
+      System.out.println(s);   
+    }   
+    ```
+    => hs2에 담겨있는 객체들을 Iterator에 담음 (복사)   
+    => hasNext() : StringTokenizer의 hasMoreTokens ()와 비슷   
+    => 더 이상의 요소가 없을 시 NoSuchElementException 발생
+### 12_6. Map 계열
+#### 12_6_1.HashMap
+```java
+HashMap<String, Snack> hm = new HashMap<>();
+```
+=> 키값과 밸류값의 제네릭 모두 작성
+- put(K key, V value) : 키 밸류 세트로 추가시켜주는 메소드 *
+  - {키=밸류, 키=밸류, ...}
+  - 저장 순서 유지 안됨 / value값이 중복되어도 key값이 중복되지 않으면 저장 잘 됨
+  - 동일한 키값으로 다시 추가하는 경우 value값이 덮어씌워짐 (중복된 키값은 공존할 수 없음) => 키값은 식별자 같은 개념
+- get(Object key) : V ⇒ 컬렉션에서 해당 키값을 가지는 Value 값을 반환해주는 메소드 *
+- size() : 컬렉션에 담겨있는 객체들의 객수 반환
+- replace(K key, V value) => 컬렉션에서 해당 키값 찾아서 다시 전달한 Value값으로 수정
+- remove(Object key) : 컬렉션에서 해당 키값을 찾아서 그 키밸류 세트를 삭제시켜주는 메소드
+-  map 공간에 담긴 모든 키 밸류 세트 다 접근 가능 
+  - 반복문 안됨
+  - ArrayList에 옮겨 담기 안됨
+  - Iterator 반복자 이용
+    - 곧바로 iterator 메소드 호출 못함
+    - Map ⇒ Set ⇒ Iterator
+    
+    ① keySet() 이용
+    
+      -  hm.keySet() : Set
+          ```java
+          Set<String> keySet = hm.keySet();
+          ```
+      - keySet.iterator() : Iterator
+        ```java
+        Iterator<String> itKey = keySet.iterator();
+        ```
+      - 반복문 이용
+        ```java
+        while(itKey.hasNext()) {
+          String key = /*(String)*/itKey.next();
+          Snack value = /*(Snack)*/hm.get(key);
+          System.out.println(key + "=" + value);
         }
         ```
-      - ArrayList에 옮겨담기 2. ArrayList 생성시 통채로 추가하기
+    ② entrySet() 이용
+      - hm.entrySet() : Set
         ```java
-        ArrayList<Student> list2 = new ArrayList<>(hs2);
+        Set<Entry<String, Snack>> entrySet = hm.entrySet();
+        ```
+      - entrySet.iterator() : Iterator
+        ```java
+        entrySet.iterator() : Iterator
+        ```
+      - 반복문 이용
+        ```java
+        while(itEntry.hasNext()) {
+          Entry<String, Snack> entry = itEntry.next();
 
-        for(int i=0; i<list2.size(); i++) {
-          System.out.println(list2.get(i));
+          String key = entry.getKey();
+          Snack value = entry.getValue();
+
+          System.out.println(key + "=" + value);	
         }
-        ```	
-		③ Iterator 반복자를 이용해서 순차적으로 접근 
-			```java   
-			Iterator<Student> it = hs2.iterator();   
-			while(it.hasNext()){   
-				Student s = it.next();   
-				System.out.println(s);   
-			}   
-			```
-			=> hs2에 담겨있는 객체들을 Iterator에 담음 (복사)   
-			=> hasNext() : StringTokenizer의 hasMoreTokens ()와 비슷   
-			=> 더 이상의 요소가 없을 시 NoSuchElementException 발생
-### 12_6. Map 계열
-- HashMap
-  ```java
-  HashMap<String, Snack> hm = new HashMap<>();
-  ```
-  => 키값과 밸류값의 제네릭 모두 작성
-  - put(K key, V value) : 키 밸류 세트로 추가시켜주는 메소드 *
-    - {키=밸류, 키=밸류, ...}
-    - 저장 순서 유지 안됨 / value값이 중복되어도 key값이 중복되지 않으면 저장 잘 됨
-    - 동일한 키값으로 다시 추가하는 경우 value값이 덮어씌워짐 (중복된 키값은 공존할 수 없음) => 키값은 식별자 같은 개념
-  - get(Object key) : V ⇒ 컬렉션에서 해당 키값을 가지는 Value 값을 반환해주는 메소드 *
-  - size() : 컬렉션에 담겨있는 객체들의 객수 반환
-  - replace(K key, V value) => 컬렉션에서 해당 키값 찾아서 다시 전달한 Value값으로 수정
-  - remove(Object key) : 컬렉션에서 해당 키값을 찾아서 그 키밸류 세트를 삭제시켜주는 메소드
-  -  map 공간에 담긴 모든 키 밸류 세트 다 접근 가능 
-    - 반복문 안됨
-    - ArrayList에 옮겨 담기 안됨
-    - Iterator 반복자 이용
-      - 곧바로 iterator 메소드 호출 못함
-      - Map ⇒ Set ⇒ Iterator
-      
+        ```
+#### 12_6_2. Properties
 ```java
-System.out.println();
+Properties prop = new Properties();
 ```
+=> 제네릭 설정 x
+- Properties에 담겨있는 것들을 파일로 출력 또는 입력받아 올 때 주로 사용함
+  - store() : 파일로 저장 (출력)   
+    내부적으로 Properties에 담겨있는 키, 밸류들을 String 형변환해서 출력함 => 키 밸류 세트 모두 문자열로 담을 때 주로 사용
+  - load() : 파일로부터 불러오기 (입력)
+- setProperty(String key, String value)
+  - 동일 키값 => 덮어씌워짐
+- getProperty(String key) : String
+  - 존재하지 않는 키값 제시하면 null 반환 ** : 오타주의!
+- store(OutputStream os, String comments) 
+  - Properties 안에 담겨있는 Key-Value 세트들을 파일로 출력 (.properties)
+    ```java
+    try {
+    prop.store(new FileOutputStream("test.properties"), "propertiesTest");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    ```
+  - Properties 안에 담겨있는 Key-Value 세트들을 파일로 출력 (.xml)
+    ```java
+    try {
+      prop.storeToXML(new FileOutputStream("test.xml"), "propertiesTest");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    ```
+    => storeToXML() 
+- load(InputStream is)
+  - .properties 파일 안에 담겨있는 Key-Value 세트들을 Properties 객체로 입력
+    ```java
+    try {
+    prop.load(new FileInputStream("test.properties"));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+      ```
+  - .xml 파일 안에 담겨있는 Key-Value 세트들을 Properties 객체로 입력
+    ```java
+    try {
+    prop.loadFromXML(new FileInputStream("test.xml"));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    ```
+    => loadFromXML()
+- .properties VS .xml
+  - .properties 파일
+    - 프로그램 상에 필요한 기본 환경설정 관련한 구문들 기술 (서버의 ip주소, dbms경로, 계정아이디, 계정비밀번호..)
+    - 해당 파일에 기술된 내용을 읽어들여서 자바에서 사용하게 됨   
+      => 모두 문자열이기 때문에 개발자가 아닌 일반인 관리자가 해당 문서를 쉽게 파악해서 수정하기 쉽다.
+    - key-value 한 줄로 기술해야함
+  - .xml 파일 특징
+    - 프로그래밍 언어들간에 있어서 호환이 쉽다.
