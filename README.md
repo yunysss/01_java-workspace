@@ -1006,3 +1006,444 @@ if(레퍼런스 instanceof 클래스타입){
   ```
   => 년 : y / 월 : M / 일 : d / 요일 : E / 시 : H / 분 : m / 초 : s
 ***
+## 10. 예외처리 (Exception)
+### 10_1. 에러의 종류
+- 시스템 에러 : 컴퓨터의 오작동으로 발생하는 에러 => 소스코드로 해결안됨 ⇒ 심각한 에러
+- 컴파일 에러 : 소스코드 문법상 오류 => 빨간줄로 오류로 알려줌 (개발자의 실수)
+- 런타임 에러 : 코드 상으로 문제가 없는데 프로그램 실행 중에 발생하는 에러 (사용자의 실수일 수 있고 개발자가 예측가능한 경우를 제대로 처리 안해놨을 경우)
+- 논리 에러 : 문법적으로도 문제없고 실행했을 때도 문제는 없지만 프로그램 의도상 맞지 않은 것
+### 10_2. 예외처리
+
+![캡처](https://user-images.githubusercontent.com/115604544/201886941-9522f08d-2a42-40ba-9f71-7434d7a8883c.JPG)
+
+- 시스템 에러를 제외한 컴파일, 런타임, 논리 에러와 같은 덜 심가한 것들을 "예외"라고 함 => Exception
+- "예외"가 "발생"했을 경우에 대해 "처리"하는 방법 => "예외처리”
+- 예외처리를 하는 목적 : 예외처리를 하지 않고 그대로 예외가 발생되는 경우 프로그램이 비정상적으로 종료됨
+  - try~catch로 예외 잡기
+    ```
+    try{
+      예외가 발생될 수 있는 구문;
+    } catch(예외클래스 e) {
+      해당 예외가 발생됐을 경우 실행할 구문 미리 작성;
+    } finally {
+      예외 발생 여부와 관계없이 꼭 처리해야 하는 구문;
+      스트림 반납 (close())
+    }
+    ```
+  - try~with~resource
+    - 스트림 반납까지 자동으로 진행 (jdk7버전 이상부터 가능)
+    ```
+    try(try블럭내에서 사용할 스트림객체 생성구문; 생성구문...){
+    } catch(예외클래스 e){
+    }
+    ```
+  - trows로 예외 던지기
+    - 지금 즉시 예외를 처리하지 않고 현재 이 메소드를 호출했던 곳으로 예외처리를 떠넘김 (위임)
+    - main까지 쭉 throws로 떠넘기면 JVM이 알아서 처리
+    ```
+    public void method2() throw IOException{
+    }
+    public void method1() throws IOException{
+      method2();
+    }
+    ```
+### 10_3. UnCheckedException (RuntimeException 관련 예외)
+- 반드시 예외 처리하지 않아도 됨
+- RuntimeException의 후손들
+  - IndexOutOfBoundsException : 부적절한 인덱스 제시시 발생되는 예외
+  - NullPointerException : 레퍼런스가 null로 초기화된 상태에서 어딘가에 접근할 때 발생되는 예외
+  - ClassCastException : 허용할 수 없는 형변환이 진행될 때 발생되는 예외
+  - ArithmeticException : 나누기 연산시 0으로 나눠질 때 발생되는 예외
+  - NegativeArraySizeException : 배열 할당시 배열의 크기를 음수로 지정하는 경우 발생되는 예외
+     ....
+### 10_4. CheckedException (IOException)
+- 반드시 예외처리를 해야만 하는 예외들
+- 조건문 제시 불가 (예측 불가한 곳에서 문제가 발생)
+- 외부 매개체와 입출력이 일어날 때 발생
+
+![캡처](https://user-images.githubusercontent.com/115604544/201887491-4e6e7c7c-f74c-4307-ab28-7330a10b7c76.JPG)
+
+## 11. 입출력 (IO)
+### 11_1. FILE 클래스
+- java.io 클래스
+- 경로지정을 하지 않은 상태로 파일 생성
+  ```java
+  File f1 = new File("test.txt");
+	f1.createNewFile();
+  ```
+  => 프로젝트 폴더에 생성
+- 경로지정한 상태로 파일 생성
+  ```java
+  File f2 = new File("C:\\folder\\text.txt");
+	f2.createNewFile();
+  ```
+  => \ 하나만 쓰면 이스케이프문자로 인식 => 2개 써줘야함
+- 폴더 먼저 만들고 파일 생성
+  ```java
+  File folder1 = new File("C:\\folder2");
+	folder1.mkdir();
+	
+	File f3 = new File("C:\\folder2\\test.txt");
+	f3.createNewFile();
+  ```
+- 파일/디렉토리 관련 메소드
+  - createNewFile() : 새로운 파일 생성
+  - mkdir() : 새로운 디렉토리(폴더) 생성
+  - isFile() : 파일인지 여부
+  - getName() : 파일 이름 리턴
+  - getAbsolutePath() : 절대경로 (물리적인 경로) 리턴
+  - length() : 파일 크기 리턴
+  - getParent() : 상위 폴더 리턴
+### 11_2. 스트림 (Stream)
+
+![이름 없는 노트북 (8)-3](https://user-images.githubusercontent.com/115604544/201888520-ded607ac-9d56-4761-8813-5b4e6adce5b3.jpg)
+
+- 프로그램 상의 데이터를 외부매체로 출력하거나 입력 받아올 때 생성하는 통로
+- 특징
+  - 단방향 : 출력이면 출력용스트림 / 입력이면 입력용스트림
+  - 선입선출(FIFO) : 먼저 들어간 데이터가 먼저 나감 => 시간지연(delay)이 발생될 수 있음
+- 구분
+  - 통로의 사이즈 (1byte / 2byte)
+    - 바이트 스트림 : 1byte짜리 데이터만 왔다 갔다 할 수 있는 좁은 통로 (한글 불가) => 입력(InputStream) / 출력(OutputStream)
+    - 문자 스트림 : 2byte짜리 데이터도 왔다 갔다 할 수 있는 넓은 통로 => 입력(Reader) / 출력(Writer)
+  - 외부매체와 직접 연결 유무
+    - 기반(기본) 스트림 : 외부 매체와 직접적으로 연결되는 통로 (필수)
+    - 보조 스트림 : 보조 역할만 하는 통로 (속도 향상 도움, 그외 유용한 기능 제공...)   
+                   단독 사용 불가! 기반스트림 반드시 있어야함
+### 11_3. 바이트 기반 스트림
+- XXXInputStream : XXX매체로부터 데이터를 입력받을 수 있는 통로
+- XXXOutputStream : XXX매체로 데이터를 출력시킬 수 있는 통로
+- 프로그램 —> 파일 (출력)
+  - FileOutputStream : 파일과 직접적으로 연결해서 1바이트 단위로 출력시킬 수 있는 스트림
+    ```java
+    FileOutputStream fout = null;
+    try {
+      fout = new FileOutputStream("a_byte.txt"/*, true*/); 
+      fout.write(97); // 'a' 문자 저장
+      fout.write('b'); // 'b' 문자 저장
+      //fout.write('하'); 
+
+      byte[] arr = {99, 100, 101};
+      fout.write(arr); // 'c', 'd', 'e' 문자가 저장
+      fout.write(arr, 1, 2); // 'd', 'e' 문자가 저장
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    } finally { 
+      try {
+        fout.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    ```
+    ① FileOutputStream 객체 생성 (해당 파일과의 연결통로가 만들어짐)
+      - 해당 파일과의 연결통로가 만들어짐
+      - 해당 파일이 없으면 새로 만들어 준 후 통로연결 / 있으면 그냥 통로연결
+      - true 미작성시 : 해당 파일이 존재할 경우 기존의 데이터 덮어씌워짐 (기본값 false)   
+        true 작성시 : 해당 파일이 존재할 경우 기존의 데이터에 이어서 작성
+      - finally에서 fout 사용하기 위해 try문 바깥에 초기화해둠
+    ② 스트림으로 데이터를 출력 (write 메소드 사용)
+      - 숫자(0~127), 문자
+      - 한글은 2byte짜리기 때문에 깨져서 저장
+      - 배열 출력시 통째로 지나가지 못하고 하나씩 지나가서 기록
+    ③ 다 사용한 후 스트림 반납 (반드시)
+      - try안에 작성시 중간에 예외가 발생되는 경우 해당 이 구문 실행 안될 수 있음
+      - finally안에 예외처리하여 작성
+- 프로그램 <— 파일 (입력)
+  - FileInputStream : 파일로부터 데이터를 1바이트 단위로 입력받는 스트림
+  ```java
+  FileInputStream fin = null;
+  try {
+    fin = new FileInputStream("a_byte.txt");
+    System.out.println(fin.read());
+    System.out.println(fin.read());
+    System.out.println(fin.read());
+    System.out.println(fin.read());
+    System.out.println(fin.read());
+    System.out.println(fin.read());
+    System.out.println(fin.read());
+    System.out.println(fin.read()); // -1
+    System.out.println(fin.read()); // -1
+    while(true) {
+	
+      int value = fin.read();
+      if(value == -1) { 
+        break;
+      }
+
+    }
+      System.out.println(value);
+    int value = 0;
+    while((value = fin.read()) != -1) {
+      System.out.print((char)value);
+    }
+  } catch (FileNotFoundException e) { 
+    e.printStackTrace();
+  } catch (IOException e) {
+    e.printStackTrace();
+  } finally {
+    try {
+      fin.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+  ```
+  ① FileInputStream 객체 생성 (해당 파일과의 연결통로가 만들어짐)
+    - 해당 파일이 존재하지 않으면 예외 발생 (자동으로 만들어주지 않음)
+  ② 스트림으로 데이터 입력받기 (read 메소드 사용)
+    - 실제로 파일에 얼마만큼의 데이터가 있는지 모름
+    - 파일의 끝을 만나는 순간 -1 반환
+    - 무한반복 활용하여 출력
+    - while문에 조건문 제시하여 출력
+  ③ 스트림 자원 반납
+### 11_4. 문자 기반 스트림
+- XXXReader : 입력용 스트림
+- XXXWriter : 출력용 스트림
+- 프로그램 —> 파일 (출력)
+  - FileWriter : 파일로 데이터를 2바이트 단위로 출력할 수 있는 스트림
+    ```java
+    FileWriter fw = null;
+    try {
+      fw = new FileWriter("b_char.txt");
+      fw.write("와! IO 재밌다..ㅎㅎ");
+      fw.write(' ');
+      fw.write('A');
+      fw.write("\n"); 
+
+      char[] arr = {'a', 'p', 'p', 'l', 'e'};
+      fw.write(arr);
+    } catch (IOException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        fw.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    ```    
+    ① FileWriter 생성
+    ② 데이터 출력 (write 메소드)
+      - 2바이트 단위로 데이터 전송
+      - \n 개행문자로 한 줄 띄어쓰기
+    ③ 스트림 반납
+- 프로그램 <— 파일 (입력)
+  - FileReader : 파일로부터 데이터를 2바이트 단위로 입력받을 수 있는 스트림
+    ```java
+    FileReader fr = null;
+    try {
+	    fr = new FileReader("b_char.txt");
+      int value = 0;
+      while((value = fr.read()) != -1) {
+        System.out.print((char)value);
+      }
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        fr.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    ```
+    ① FileReader 객체 생성
+    ② 데이터 입력 (read 메소드)
+    ③ 스트림 반납
+### 11_5. 보조스트림
+- 속도를 향상 시키거나 기반스트림에서 제공하지 않는 메소드들을 제공
+- 입출력 성능 보조스트림 (BufferedXXXXX)
+  - 버퍼라는 공간에 계속 쌓아놨다가 한번에 출력해줌 => 속도향상에 도움
+  - 프로그램 —> 파일 (출력)
+    - FileWriter : 파일과 직접적으로 연결해서 2바이트 단위로 출력할 수 있는 기반스트림
+    - BufferedWriter : 버퍼라는 공간을 제공해주는 보조스트림 (속도 향상)
+    ① 기반스트림 생성
+    ```java
+    FileWriter fw = new FileWriter("c_buffer.txt");
+    ```
+    ② 보조스트림 생성
+    ```java
+    BufferedWriter bw = new BufferedWriter(fw);
+    ```
+      - 기반스트림, 보조스트림 함께 생성
+        ```
+        보조스트림 = new 보조스트림(new 보조스트림(기반스트림객체));
+        ```
+  - 프로그램 <— 파일 (입력)
+    - FileReader
+    - BufferedReader
+    - readLine() : 한줄씩 읽어들이는 메소드
+- 객체(배열) 입출력 보조스트림
+```java
+public class Phone implements Serializable { 
+
+	private String name;
+	private int price;
+	
+...
+}
+```
+=> 객체 자체를 입출력하고자 할 때 필수      
+=> Serializable 인터페이스를 구현
+  - 프로그램 —> 파일 (출력) - 객체
+    - FileOutputStream
+    - ObjectOutputStream : 객체 단위로 출력할 수 있도록 도움을 주는 보조스트림 (ObjectWriter 없음)
+    - writeObject()
+  - 프로그램 <— 파일 (입력) - 객체
+    - FileInputStream
+    - ObjectInputStream
+    - readObject()
+  - 프로그램 —> 파일 (출력) - 객체배열
+    ```java
+    Phone[] arr = new Phone[3];
+    arr[0] = new Phone("갤럭시", 1200000);
+    arr[1] = new Phone("아이폰", 1300000);
+    arr[2] = new Phone("플립", 1500000);
+
+    try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("e_phones.txt"))){	
+      for(int i=0; i<arr.length; i++) {
+        oos.writeObject(arr[i]);
+      }	
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    ```
+  - 프로그램 <— 파일 (입력) - 객체배열
+    ```java
+    try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("e_phones.txt"))){
+      while(true) {
+        System.out.println(ois.readObject());
+      }
+
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (EOFException e) {
+      System.out.println("파일을 다 읽었습니다.");
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    }
+    ```
+    - 파일의 끝을 만나는 순간 IOException의 자식인 EOFException(end of file) 예외 발생 / while에 조건문 제시 못함
+    - EOFException 예외 처리 해주고 싶으면 IOException 예외 처리 구문보다 위에 작성 해주기
+## 12. 컬렉션 (Collection)
+### 12_1. 컬렉션이란?
+- 자료구조가 내장되어있는 자바 클래스로 자바에서 제공하는 "자료구조를 담당하는 프레임워크”
+  - 자료구조 : 방대한 데이터들을 효율적/구조적으로 관리(조회, 정렬, 추가, 수정, 삭제)하기 위한 개념
+  - 프레임워크 : 데이터나 기능들을 보다 쉽게 사용할 수 있도록 제공하는 틀
+- 방대한 데이터들을 효율적으로 관리할 수 있는 기능들이 이미 내장되어있는 클래스
+### 12_2. 배열과 컬렉션의 차이점 (배열의 단점 vs 컬렉션의 장점)
+- 배열
+  - 크기에 대한 제약이 많음 (크기 지정 필수, 한번 지정된 크기 변경 불가)
+  - 중간 위치에 추가하거나 삭제하는 경우 값을 뒤로 또는 앞으로 땡겨주는 작업을 직접 코드로써 구현해야됨
+  - 한 타입의 데이터만 저장 가능
+- 컬렉션
+  - 크기에 대한 제약이 없음 (크기 지정 안해도됨, 알아서 크기 변경됨)
+  - 중간 위치에 추가하거나 삭제하는 경우 값을 땡겨주는 알고리즘을 직접 구현할 필요없음    
+    이미 메소드로 제공하고 있기때문에 메소드 호출만으로 간단하게 처리할 수 있음
+  - 여러 타입의 데이터 저장 가능
+### 12_3. 컬렉션의 주요 인터페이스
+
+![Untitled](https://user-images.githubusercontent.com/115604544/201894782-3a6b4509-0954-4bef-b812-b53a13757914.png)
+
+- List 계열
+  - 데이터(value)만 저장 가능
+  - 순서 유지함 (index의 개념있음)
+  - 중복된 데이터 허용됨
+  - Vector, "ArrayList", LinkedList, ..
+- Set 계열
+  - 데이터(value)만 저장 가능
+  - 순서 유지되지 않음
+  - 중복된 데이터 허용안됨
+  - HashSet, TreeSet, ..
+- Map 계열
+  - 키(key)와 데이터(value)를 함께 저장
+  - 순서 유지되지 않음
+  - value는 중복될 수 있으나 key는 중복허용안됨
+  - HashMap, TreeMap, Properties, ..
+### 12_4. List 계열
+- ArrayList
+  ```java
+  ArrayList/*<Object>*/ list = new ArrayList/*<Object>*/(3);
+  System.out.println(list); // []
+  ```
+  => 크기 지정 할 수도 있고 안 할 수도 있음 (초기 저장 용량은 10으로 자동 설정)
+  => 데이터 추가 전에는 안에 아무것도 없음 (비어있는 상태)
+  => 별도로 제네릭 설정을 하지 않으면 <Object> => E == Object
+  - add(E e) : 리스트의 끝에 전달된 데이터를 추가시켜주는 메소드 *
+    -  E --> Element : 리스트에 담길 데이터들(요소)
+    - 장점 : 크기의 제약 없음 / 여러타입 보관 가능
+    - 특징 : 순서유지 하면서 담김 (0번 인덱스부터 차곡차곡)
+  - add(int index, E e) : 해당 인덱스위치에 데이터를 추가시켜주는 메소드
+    - 장점 : 중간 위치에 데이터 추가시 복잡한 알고리즘 직접 구현 안함
+  - remove(int index) : 해당 인덱스위치의 데이터를 삭제시켜주는 메소드
+  - set(int index, E e) : 해당 인덱스위치에 데이터를 새로이 전달된 e로 변경시켜주는 메소드 *
+  - size() : 리스트의 사이즈를 반환시켜주는 메소드
+  - get(int index) : E ⇒ 해당 인덱스위치의 객체를 반환시켜주는 메소드 *
+    - 변수에 담거나 getter 메소드 등을 불러올 시 강제 형변환 필요 
+  - subList(int index1, int index2) : List (List 인터페이스 : ArrayList의 부모) ⇒ 기존의 리스트에서 일부 추출해서 새로운 List로 반환
+    - index1 <= < index2
+  - addAll(Collection c) : 컬렉션(List, Set)을 통채로 뒤에 추가시켜주는 메소드
+  - isEmpty() : boolean ⇒ 컬렉션이 비어있는지 묻는 메소드 *
+  - clear() : 싹 비워주는 메소드
+- 제네릭<> 설정
+  ```java
+  ArrayList<Music> list = new ArrayList<>();
+  ```
+  => Music 객체만 저장할 수 있도록 함
+  => 생성 구문에는 <>만 작성해도 됨
+  - 장점
+    - 명시된 타입의 객체만 저장하도록 제한을 둘 수 있음
+    - 컬렉션에 저장된 객체를 꺼내서 사용할 때 매번 형변환하는 절차를 없앨 수 있음
+### 12_5. Set 계열
+- HashSet
+  - 새로운 데이터를 추가할 때마다 동일객체(hashCode값 일치한지, equals비교시 true인지 : String class(실제 문자열로 비교))인지 판단함
+  - 동일객체 : 각 객체마다 hashCode 결과가 일치, equals 비교시 true여야됨
+    - Student에 equals() 오버라이딩 => "실제 각 필드에 담긴 데이터"들이 다 일치하면 true/ 아니면 false
+    - Student에 hashCode() 오버라이딩 => "실제 각 필드에 담긴 데이터"들이 다 일치하면 동일한 10진수 반환
+  - HashSet에 담긴 모든 객체들에 순차적으로 접근
+    - 인덱스의 개념도 없고 get메소드 자체도 없음 (== 한 객체만 뽑을 수 없음)
+    ① for문 사용 가능 (단, 향상된 for문으로만 가능)
+      ```java
+      for(Student s : hs2) {
+        System.out.println(s);
+      }
+      ```
+    ② 2. ArrayList에 옮겨 담은 후 ArrayList 반복문 돌려서 출력
+      - ArrayList에 옮겨담기 1. addAll메소드 이용
+        ```java
+        ArrayList<Student> list1 = new ArrayList<>();
+        list1.addAll(hs2);
+
+        for(int i=0; i<list2.size(); i++) {
+          System.out.println(list2.get(i));
+        }
+        ```
+      - ArrayList에 옮겨담기 2. ArrayList 생성시 통채로 추가하기
+        ```java
+        ArrayList<Student> list2 = new ArrayList<>(hs2);
+
+        for(int i=0; i<list2.size(); i++) {
+          System.out.println(list2.get(i));
+        }
+        ```
+      ③ Iterator 반복자를 이용해서 순차적으로 접근
+        ```java
+        Iterator<Student> it = hs2.iterator(); 
+		
+        while(it.hasNext()) {
+          Student s = it.next();
+          System.out.println(s);
+        }
+        ```
+        => hs2에 담겨있는 객체들을 Iterator에 담음 (복사)   
+        => hasNext() : StringTokenizer의 hasMoreTokens ()와 비슷    
+        => 더 이상의 요소가 없을 시 NoSuchElementException 발생
