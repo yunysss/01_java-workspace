@@ -1435,15 +1435,9 @@ public class Phone implements Serializable {
           System.out.println(list2.get(i));
         }
         ```
+	
       ③ Iterator 반복자를 이용해서 순차적으로 접근
-        ```java
-        Iterator<Student> it = hs2.iterator(); 
-		
-        while(it.hasNext()) {
-          Student s = it.next();
-          System.out.println(s);
-        }
-        ```
-        => hs2에 담겨있는 객체들을 Iterator에 담음 (복사)   
+      	
+				=> hs2에 담겨있는 객체들을 Iterator에 담음 (복사)   
         => hasNext() : StringTokenizer의 hasMoreTokens ()와 비슷    
         => 더 이상의 요소가 없을 시 NoSuchElementException 발생
