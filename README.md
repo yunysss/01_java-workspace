@@ -1370,39 +1370,37 @@ public class Phone implements Serializable {
   - value는 중복될 수 있으나 key는 중복허용안됨
   - HashMap, TreeMap, Properties, ..
 ### 12_4. List 계열
-- ArrayList
-  ```java
-  ArrayList/*<Object>*/ list = new ArrayList/*<Object>*/(3);
-  System.out.println(list); // []
-  ```
-  => 크기 지정 할 수도 있고 안 할 수도 있음 (초기 저장 용량은 10으로 자동 설정)
-  => 데이터 추가 전에는 안에 아무것도 없음 (비어있는 상태)
-  => 별도로 제네릭 설정을 하지 않으면 <Object> => E == Object
-  - add(E e) : 리스트의 끝에 전달된 데이터를 추가시켜주는 메소드 *
-    -  E --> Element : 리스트에 담길 데이터들(요소)
-    - 장점 : 크기의 제약 없음 / 여러타입 보관 가능
-    - 특징 : 순서유지 하면서 담김 (0번 인덱스부터 차곡차곡)
-  - add(int index, E e) : 해당 인덱스위치에 데이터를 추가시켜주는 메소드
-    - 장점 : 중간 위치에 데이터 추가시 복잡한 알고리즘 직접 구현 안함
-  - remove(int index) : 해당 인덱스위치의 데이터를 삭제시켜주는 메소드
-  - set(int index, E e) : 해당 인덱스위치에 데이터를 새로이 전달된 e로 변경시켜주는 메소드 *
-  - size() : 리스트의 사이즈를 반환시켜주는 메소드
-  - get(int index) : E ⇒ 해당 인덱스위치의 객체를 반환시켜주는 메소드 *
-    - 변수에 담거나 getter 메소드 등을 불러올 시 강제 형변환 필요 
-  - subList(int index1, int index2) : List (List 인터페이스 : ArrayList의 부모) ⇒ 기존의 리스트에서 일부 추출해서 새로운 List로 반환
-    - index1 <= < index2
-  - addAll(Collection c) : 컬렉션(List, Set)을 통채로 뒤에 추가시켜주는 메소드
-  - isEmpty() : boolean ⇒ 컬렉션이 비어있는지 묻는 메소드 *
-  - clear() : 싹 비워주는 메소드
-- 제네릭<> 설정
-  ```java
-  ArrayList<Music> list = new ArrayList<>();
-  ```
-  => Music 객체만 저장할 수 있도록 함
-  => 생성 구문에는 <>만 작성해도 됨
-  - 장점
-    - 명시된 타입의 객체만 저장하도록 제한을 둘 수 있음
-    - 컬렉션에 저장된 객체를 꺼내서 사용할 때 매번 형변환하는 절차를 없앨 수 있음
+#### 12_4_1.ArrayList
+```java
+ArrayList/*<Object>*/ list = new ArrayList/*<Object>*/(3);
+System.out.println(list); // []
+```
+=> 크기 지정 할 수도 있고 안 할 수도 있음 (초기 저장 용량은 10으로 자동 설정)   
+=> 데이터 추가 전에는 안에 아무것도 없음 (비어있는 상태)   
+=> 별도로 제네릭 설정을 하지 않으면 <Object> => E == Object
+- add(E e) : 리스트의 끝에 전달된 데이터를 추가시켜주는 메소드 *
+	-  E --> Element : 리스트에 담길 데이터들(요소)
+  - 장점 : 크기의 제약 없음 / 여러타입 보관 가능
+  - 특징 : 순서유지 하면서 담김 (0번 인덱스부터 차곡차곡)
+- add(int index, E e) : 해당 인덱스위치에 데이터를 추가시켜주는 메소드
+	- 장점 : 중간 위치에 데이터 추가시 복잡한 알고리즘 직접 구현 안함
+- remove(int index) : 해당 인덱스위치의 데이터를 삭제시켜주는 메소드
+- set(int index, E e) : 해당 인덱스위치에 데이터를 새로이 전달된 e로 변경시켜주는 메소드 *
+- size() : 리스트의 사이즈를 반환시켜주는 메소드
+- get(int index) : E ⇒ 해당 인덱스위치의 객체를 반환시켜주는 메소드 *
+	- 변수에 담거나 getter 메소드 등을 불러올 시 강제 형변환 필요 
+- subList(int index1, int index2) : List (List 인터페이스 : ArrayList의 부모) ⇒ 기존의 리스트에서 일부 추출해서 새로운 List로 반환
+	- index1 <= < index2
+- addAll(Collection c) : 컬렉션(List, Set)을 통채로 뒤에 추가시켜주는 메소드
+- isEmpty() : boolean ⇒ 컬렉션이 비어있는지 묻는 메소드 *
+- clear() : 싹 비워주는 메소드
+#### 12_4_2. 제네릭<> 설정
+```java
+ArrayList<Music> list = new ArrayList<>();
+```
+- 장점
+	- 명시된 타입의 객체만 저장하도록 제한을 둘 수 있음
+	- 컬렉션에 저장된 객체를 꺼내서 사용할 때 매번 형변환하는 절차를 없앨 수 있음
 ### 12_5. Set 계열
 - HashSet
   - 새로운 데이터를 추가할 때마다 동일객체(hashCode값 일치한지, equals비교시 true인지 : String class(실제 문자열로 비교))인지 판단함
@@ -1435,17 +1433,17 @@ public class Phone implements Serializable {
           System.out.println(list2.get(i));
         }
         ```	
-    ③ Iterator 반복자를 이용해서 순차적으로 접근
-      ```java
-      Iterator<Student> it = hs2.iterator();
-      while(it.hasNext()) {
-        Student s = it.next();
-        System.out.println(s);
-      }
-      ```
-      => hs2에 담겨있는 객체들을 Iterator에 담음 (복사)   
-      => hasNext() : StringTokenizer의 hasMoreTokens ()와 비슷   
-      => 더 이상의 요소가 없을 시 NoSuchElementException 발생
+		③ Iterator 반복자를 이용해서 순차적으로 접근 
+			```java   
+			Iterator<Student> it = hs2.iterator();   
+			while(it.hasNext()){   
+				Student s = it.next();   
+				System.out.println(s);   
+			}   
+			```
+			=> hs2에 담겨있는 객체들을 Iterator에 담음 (복사)   
+			=> hasNext() : StringTokenizer의 hasMoreTokens ()와 비슷   
+			=> 더 이상의 요소가 없을 시 NoSuchElementException 발생
 ### 12_6. Map 계열
 - HashMap
   ```java
@@ -1467,3 +1465,6 @@ public class Phone implements Serializable {
       - 곧바로 iterator 메소드 호출 못함
       - Map ⇒ Set ⇒ Iterator
       
+```java
+System.out.println();
+```
