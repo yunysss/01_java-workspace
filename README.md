@@ -411,10 +411,12 @@ while(조건식){
   - String값도 담고, int값도 담고, double값 등도 담을 수 있는 나만의 배열같은 자료형 => 클래스   
     클래스 만들기 ⇒ model.vo
     
-    ![Untitled](https://user-images.githubusercontent.com/115604544/201521162-2d839b9e-0991-4aab-8789-ce88e28b1231.png)
+    ![캡처](https://user-images.githubusercontent.com/115604544/202982392-c59b4564-35e4-4d6f-ba62-39e4cd707ef2.JPG)
+
 #### 5_1_5. 캡슐화 (Encapsulation)
 
-![Untitled](https://user-images.githubusercontent.com/115604544/201521208-83573654-dcf2-4b0e-ae4b-cb2cd1b31711.png)
+![캡처1](https://user-images.githubusercontent.com/115604544/202982476-7ecefe1f-8732-4cb6-8d15-d1d4ef2e6e1e.JPG)
+
 : "데이터의 접근제한"을 원칙으로 외부로부터 "데이터의 직접 접근을 막고" 대신에 "간접적으로나마 처리(값을 대입, 값을 대돌려주거나)"할 메소드를 클래스 내부에 작성
 - 정보은닉 : 직접 접근을 막기 위해 private 접근제한자 이용
 
@@ -757,7 +759,7 @@ if(레퍼런스 instanceof 클래스타입){
 - 인터페이스에서 인터페이스를 상속 : 인터페이스 extends 인터페이스, 인터페이스, ... (다중상속 가능)  : 화살표 "실선"
 - 클래스도 상속 받고 인터페이스도 구현할 때 : 클래스 extends 클래스 implements 인터페이스
 
-<img width="451" alt="캡처" src="https://user-images.githubusercontent.com/115604544/201528210-ecf03980-53bd-4101-a59d-61c399ae1512.PNG">
+![캡처](https://user-images.githubusercontent.com/115604544/202981708-16c043f6-a6d6-4015-8988-9e4fb4b8d2d0.JPG)
 
 ***
 ## 9. 기본 API
@@ -1099,7 +1101,7 @@ if(레퍼런스 instanceof 클래스타입){
   - getParent() : 상위 폴더 리턴
 ### 11_2. 스트림 (Stream)
 
-![이름 없는 노트북 (8)-3](https://user-images.githubusercontent.com/115604544/201888520-ded607ac-9d56-4761-8813-5b4e6adce5b3.jpg)
+![캡처](https://user-images.githubusercontent.com/115604544/202981952-83db7b26-59e6-46a2-976e-179199fdf456.JPG)
 
 - 프로그램 상의 데이터를 외부매체로 출력하거나 입력 받아올 때 생성하는 통로
 - 특징
