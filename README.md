@@ -1576,3 +1576,4 @@ Properties prop = new Properties();
     - key-value 한 줄로 기술해야함
   - .xml 파일 특징
     - 프로그래밍 언어들간에 있어서 호환이 쉽다.
+    - value값이 시작태그와 종료태그 사이에만 존재하면 됨 (여러 줄 가능)
